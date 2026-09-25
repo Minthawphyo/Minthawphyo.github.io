@@ -177,7 +177,7 @@ section{position:relative}
 .avatar .ink{stroke:#111;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .avatar .paper{fill:#fff}
 .avatar .fill-ink{fill:#111}
-.avatar .head{transform-origin:120px 170px;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.avatar .figure{transform-origin:120px 240px;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .avatar .pupils{transition:transform .15s ease-out}
 .avatar .eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
@@ -468,65 +468,19 @@ footer{text-align:center;color:var(--faint);font-size:13px;padding:40px 16px 60p
   <div class="hero-stick">
     <div class="hero-inner" id="heroInner">
 <div class="avatar-wrap" id="avatarWrap">
-        <svg class="avatar" id="avatar" viewBox="0 0 240 250" role="img" aria-label="Cartoon of Justin waving">
+        <svg class="avatar" id="avatar" viewBox="0 0 240 250" role="img" aria-label="Illustrated character, black and white">
           <defs><clipPath id="avClip"><circle cx="120" cy="130" r="112"/></clipPath><linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a84ff" stop-opacity="0"/><stop offset=".85" stop-color="#0a84ff" stop-opacity=".35"/><stop offset="1" stop-color="#0a84ff" stop-opacity=".9"/></linearGradient></defs>
           <circle cx="120" cy="130" r="112" class="paper"/>
           <g clip-path="url(#avClip)">
-            <!-- neck + dark collared shirt -->
-            <rect x="106" y="158" width="28" height="36" class="paper ink"/>
-            <path d="M24 262 C26 212 66 190 120 190 C174 190 214 212 216 262 Z" fill="#1c1c1e" stroke="#111" stroke-width="4"/>
-            <path class="paper ink" d="M104 189 L120 214 L136 189 Z"/>
-            <path d="M102 187 L86 207 L110 213 Z M138 187 L154 207 L130 213 Z" fill="#1c1c1e" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
-            <path d="M120 216 V262" stroke="#fff" stroke-width="1.8" opacity=".55"/>
-            <circle cx="120" cy="232" r="2.4" fill="#fff"/><circle cx="120" cy="250" r="2.4" fill="#fff"/>
-            <!-- waving arm (sleeve) -->
-            <g class="arm">
-              <path d="M178 250 C186 222 196 196 202 172" fill="none" stroke="#111" stroke-width="30" stroke-linecap="round"/>
-              <path d="M178 250 C186 222 196 196 202 172" fill="none" stroke="#2a2a2e" stroke-width="22" stroke-linecap="round"/>
+            <g class="figure" id="avFigure">
+              <image href="avatar.webp" x="-5" y="8" width="250" height="250"/>
+              <circle cx="120" cy="130" r="112" class="veil"/>
+              <g class="lm" id="lmFace"></g>
+              <g class="lm" id="lmPose"></g>
             </g>
-            <!-- head -->
-            <g class="head" id="avHead">
-              <ellipse cx="70" cy="124" rx="9" ry="13" class="paper ink"/>
-              <ellipse cx="170" cy="124" rx="9" ry="13" class="paper ink"/>
-              <path class="paper ink" d="M70 100 C70 70 92 58 120 58 C148 58 170 70 170 100 C170 134 158 156 138 166 C130 170 110 170 102 166 C82 156 70 134 70 100 Z"/>
-              <!-- Korean-style hair: soft volume, see-through bangs in separate locks, comma curls, webtoon shine -->
-              <path class="fill-ink ink" d="M66 108 C58 80 62 48 92 36 C108 28 136 28 152 36 C180 48 186 80 176 108 C172 96 168 90 162 86 L78 86 C72 90 68 96 66 108 Z"/>
-              <g fill="#111" stroke="#fff" stroke-width="1.3" stroke-linejoin="round">
-                <path d="M80 68 C72 82 74 98 86 108 C83 97 87 88 97 82 Z"/>
-                <path d="M94 64 C90 80 94 95 105 104 C104 93 108 85 116 80 Z"/>
-                <path d="M110 60 C108 76 112 90 121 99 C122 88 127 80 134 76 Z"/>
-                <path d="M134 60 C139 74 141 89 137 101 C145 93 151 85 153 76 Z"/>
-                <path d="M150 64 C162 76 166 92 158 106 C167 99 173 90 172 78 Z"/>
-              </g>
-              <path d="M120 31 C117 21 123 14 131 16" fill="none" stroke="#111" stroke-width="2.8" stroke-linecap="round"/>
-              <path d="M94 50 C106 42 124 40 138 44" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="14 5 6 5" opacity=".75"/>
-              <path class="ink" fill="none" stroke-width="3.2" d="M91 116 Q99 112 107 115"/>
-              <path class="ink" fill="none" stroke-width="3.2" d="M133 115 Q141 112 149 116"/>
-              <path class="ink" fill="none" stroke-width="3.5" d="M89 126 Q98 119 108 125"/>
-              <path class="ink" fill="none" stroke-width="3.5" d="M132 125 Q142 119 151 126"/>
-              <g class="pupils" id="avPupils">
-                <ellipse class="eye fill-ink" cx="98" cy="127.5" rx="4.4" ry="4.8"/>
-                <ellipse class="eye fill-ink" cx="141" cy="127.5" rx="4.4" ry="4.8"/>
-              </g>
-              <path class="ink" fill="none" stroke-width="3" d="M121 132 Q117 142 123 144"/>
-              <path class="ink" fill="none" stroke-width="3.5" d="M108 154 Q121 161 133 152"/>
-              <ellipse cx="86" cy="145" rx="7" ry="3.5" fill="#e6e6e6"/>
-              <ellipse cx="154" cy="145" rx="7" ry="3.5" fill="#e6e6e6"/>
-            </g>
-            <circle cx="120" cy="130" r="112" class="veil"/>
-            <g class="lm" id="lmPose"></g>
-            <g class="head" id="avHeadLm"><g class="lm" id="lmFace"></g></g>
             <rect class="scanline" x="0" y="-40" width="240" height="40" fill="url(#scanGrad)"/>
           </g>
           <circle cx="120" cy="130" r="112" fill="none" stroke="#111" stroke-width="4"/>
-          <g class="arm">
-              <path class="paper ink" d="M190 160 C188 146 192 132 200 128 L202 118 C203 112 210 112 210 118 L210 126 L213 114 C214 108 221 109 220 115 L218 128 L222 120 C224 115 230 117 228 123 L222 142 C220 156 212 166 200 166 C194 166 191 164 190 160 Z"/>
-              <path class="ink" fill="none" d="M190 150 C184 146 182 138 187 136"/>
-              <rect x="188" y="165" width="26" height="9" rx="3" fill="#111"/>
-              <circle cx="201" cy="169.5" r="5.8" fill="#fff" stroke="#111" stroke-width="2.6"/>
-              <path d="M201 169.5 V166.5 M201 169.5 H203.5" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
-              <g class="lm" id="lmHand"></g>
-          </g>
         </svg>
         <div class="bubble glass"><span class="b-hi">Hi, I'm Justin!</span><span class="b-scan"><i></i>Tracking 48 landmarks</span></div>
       </div>
@@ -1058,47 +1012,42 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-/* ================= AVATAR: eyes follow cursor, wave on click ================= */
+/* ================= AVATAR: landmark scan + cursor tilt ================= */
 (function(){
-  const av=$('#avatar'), pupils=$('#avPupils'), head=$('#avHead'), headLm=$('#avHeadLm'), wrap=$('#avatarWrap');
+  const av=$('#avatar'), fig=$('#avFigure'), wrap=$('#avatarWrap');
+  // image is 1024px, drawn at x=-5 y=8 size 250 inside the SVG
+  const S=250/1024, M=([x,y])=>[-5+x*S, 8+y*S];
+  let idx=0;
+  function draw(g,pts,edges){
+    pts=pts.map(M);
+    const ln=edges.map(([a,b])=>`<line x1="${pts[a][0]}" y1="${pts[a][1]}" x2="${pts[b][0]}" y2="${pts[b][1]}"/>`).join('');
+    const dots=pts.map(p=>`<circle style="--i:${idx++}" cx="${p[0]}" cy="${p[1]}" r="3"/>`).join('');
+    g.innerHTML=ln+dots;
+    return pts.length;
+  }
+  const chain=(from,n,closed)=>{const e=[];for(let i=0;i<n-1;i++)e.push([from+i,from+i+1]);if(closed)e.push([from+n-1,from]);return e;};
+  const face=[], fe=[];
+  const add=(pts,closed)=>{const s0=face.length;face.push(...pts);fe.push(...chain(s0,pts.length,closed));};
+  add([[362,360],[368,430],[380,500],[405,565],[450,610],[508,636],[566,610],[612,565],[636,500],[650,430],[660,360]]); // jaw
+  add([[388,334],[430,320],[478,332]]); add([[546,332],[594,320],[638,334]]);                                     // brows
+  add([[396,370],[430,356],[466,370],[430,382]],true); add([[562,370],[598,356],[634,368],[598,382]],true);       // eyes
+  add([[512,392],[512,440],[492,482],[512,492],[532,482]]);                                                       // nose
+  add([[448,524],[512,518],[578,520],[512,548]],true);                                                            // mouth
+  let total=draw($('#lmFace'),face,fe);
+  total+=draw($('#lmPose'),[[180,790],[380,640],[512,760],[644,640],[850,790]],[[0,1],[1,2],[2,3],[3,4]]);
+  wrap.querySelector('.b-scan').lastChild.textContent=`Tracking ${total} landmarks`;
+
   if(!reduce && matchMedia('(hover:hover)').matches){
     let raf=0;
     addEventListener('mousemove',e=>{
       cancelAnimationFrame(raf);
       raf=requestAnimationFrame(()=>{
         const r=av.getBoundingClientRect();
-        const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height*.45);
-        const d=Math.hypot(dx,dy)||1, k=Math.min(1,d/400);
-        pupils.style.transform=`translate(${dx/d*3*k}px,${dy/d*1.8*k}px)`;
-        const t=`rotate(${Math.max(-6,Math.min(6,dx/80))}deg)`; head.style.transform=t; headLm.style.transform=t;
+        const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+        fig.style.transform=`rotate(${Math.max(-4,Math.min(4,dx/120))}deg) translate(${Math.max(-3,Math.min(3,dx/200))}px,${Math.max(-3,Math.min(3,dy/200))}px)`;
       });
     },{passive:true});
   }
-  // ---- build MediaPipe-style landmark overlay ----
-  let idx=0;
-  function draw(g,pts,edges){
-    const ln=edges.map(([a,b])=>`<line x1="${pts[a][0]}" y1="${pts[a][1]}" x2="${pts[b][0]}" y2="${pts[b][1]}"/>`).join('');
-    const dots=pts.map(p=>`<circle style="--i:${idx++}" cx="${p[0]}" cy="${p[1]}" r="3.2"/>`).join('');
-    g.innerHTML=ln+dots;
-    return pts.length;
-  }
-  const chain=(from,n,closed)=>{const e=[];for(let i=0;i<n-1;i++)e.push([from+i,from+i+1]);if(closed)e.push([from+n-1,from]);return e;};
-  // face: jaw oval, brows, eyes, nose, mouth
-  const face=[], fe=[];
-  face.push([170,100],[169,118],[164,136],[154,152],[138,166],[120,170],[102,166],[86,152],[76,136],[71,118],[70,100]);
-  fe.push(...chain(0,face.length));
-  const add=(pts,closed)=>{const s0=face.length;face.push(...pts);fe.push(...chain(s0,pts.length,closed));};
-  add([[91,116],[99,112],[107,115]]); add([[133,115],[141,112],[149,116]]);
-  add([[89,126],[98,120],[108,125],[98,131]],true); add([[132,125],[142,120],[151,126],[141,131]],true);
-  add([[121,118],[121,132],[117,142],[123,144]]);
-  add([[108,154],[121,160],[133,152],[121,156]],true);
-  let total=draw($('#lmFace'),face,fe);
-  // pose: shoulders + neck
-  total+=draw($('#lmPose'),[[62,226],[120,194],[176,222]],[[0,1],[1,2]]);
-  // hand (21-point style, simplified) + elbow
-  const hand=[[199,166],[191,158],[186,148],[187,137],[201,132],[204,122],[206,113],[211,132],[214,121],[217,110],[219,136],[223,127],[226,118],[191,206]];
-  total+=draw($('#lmHand'),hand,[[0,1],[1,2],[2,3],[0,4],[4,5],[5,6],[4,7],[7,8],[8,9],[7,10],[10,11],[11,12],[0,10],[13,0]]);
-  wrap.querySelector('.b-scan').lastChild.textContent=`Tracking ${total} landmarks`;
 
   let scanT=0;
   const scan=(on)=>{
@@ -1110,11 +1059,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   if(matchMedia('(hover:hover)').matches){
     av.addEventListener('mouseenter',()=>scan(true));
     av.addEventListener('mouseleave',()=>scan(false));
+  } else {
+    av.addEventListener('click',()=>wrap.classList.contains('scan')?scan(false):pulse(3200));
   }
-  av.addEventListener('click',()=>{
-    wrap.classList.remove('hi'); void wrap.offsetWidth; wrap.classList.add('hi');
-    if(!matchMedia('(hover:hover)').matches) wrap.classList.contains('scan')?scan(false):pulse(3200);
-  });
   if(!reduce) setTimeout(()=>pulse(3000),2600);
 })();
 
