@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Desktop Assistant</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1f2328;
+      --muted: #59636e;
+      --line: #d1d9e0;
+      --link: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --text: #e6edf3;
+        --muted: #9198a1;
+        --line: #30363d;
+        --link: #4493f8;
+      }
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 16px 64px;
+    }
+    h1 { font-size: 2rem; margin: 0 0 4px; }
+    h2 { font-size: 1.2rem; margin: 32px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+    .date { color: var(--muted); margin: 0 0 24px; }
+    a { color: var(--link); }
+    ul { padding-left: 20px; }
+    footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Privacy Policy</h1>
+    <p class="date">Desktop Assistant &middot; Effective October 10, 2026</p>
+
+    <p>
+      Desktop Assistant is a personal, non-commercial application built and used only by its developer,
+      Min Thaw Phyo. It is not offered to the public. This page explains what data the app accesses and how it is handled.
+    </p>
+
+    <h2>Data the app accesses</h2>
+    <ul>
+      <li><strong>Google Calendar (read-only):</strong> event titles, times, locations and free/busy information, using the
+        <code>calendar.readonly</code> scope. The app cannot create, change or delete events.</li>
+      <li>No other Google data is requested.</li>
+    </ul>
+
+    <h2>How the data is used</h2>
+    <ul>
+      <li>Calendar data is used only to answer the developer's own questions about their schedule, such as upcoming events or free time.</li>
+      <li>Calendar data is processed on the developer's own computer by a locally running AI model.</li>
+      <li>Calendar data is not sent to third-party AI services, advertisers or any other external party.</li>
+    </ul>
+
+    <h2>Storage and security</h2>
+    <ul>
+      <li>OAuth tokens and any logs are stored only on the developer's own computer and are never published or shared.</li>
+      <li>No calendar data is stored on any server.</li>
+      <li>Access can be revoked at any time from your Google Account at
+        <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+    </ul>
+
+    <h2>Sharing</h2>
+    <p>
+      Data obtained through Google APIs is never sold, shared, or used for advertising.
+      The app's use and transfer of information received from Google APIs adheres to the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+      including the Limited Use requirements.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:minthawphyo03@gmail.com">minthawphyo03@gmail.com</a></p>
+
+    <footer>
+      <a href="https://minthawphyo.github.io/">Back to minthawphyo.github.io</a>
+    </footer>
+  </main>
+</body>
+</html>
