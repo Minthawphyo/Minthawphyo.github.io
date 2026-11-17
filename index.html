@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Min Thaw Phyo (Justin) | AI/ML Engineer</title>
-<meta name="description" content="Min Thaw Phyo (Justin), AI/ML Engineer in Singapore. Computer vision, deep learning, data analysis and LLM agent systems. Published researcher in Myanmar Sign Language recognition.">
-<meta property="og:title" content="Min Thaw Phyo (Justin), AI/ML Engineer">
-<meta property="og:description" content="I build AI systems that see, read and reason: real-time computer vision, sign language recognition, data analysis and multi-agent LLM tools.">
+<title>Min Thaw Phyo (Justin) | Data Science and Machine Learning</title>
+<meta name="description" content="Min Thaw Phyo (Justin), data scientist in Singapore. Data analysis, machine learning, computer vision and LLM systems. Published researcher in Myanmar Sign Language recognition.">
+<meta property="og:title" content="Min Thaw Phyo (Justin), Data Science and Machine Learning">
+<meta property="og:description" content="I turn data into decisions and build models that see, read and reason: data analysis, machine learning, computer vision and LLM tools.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://minthawphyo.github.io/">
 <meta name="twitter:card" content="summary">
@@ -90,7 +90,7 @@ section{padding:112px 0}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(0,147,110,.45)}70%,100%{box-shadow:0 0 0 9px rgba(0,147,110,0)}}
 
 .cam{position:relative;border-radius:24px;background:linear-gradient(180deg,#f7f9fc,#eef2f8);box-shadow:0 0 0 1px var(--line),0 24px 60px -24px rgba(22,26,34,.18);overflow:hidden;aspect-ratio:1/1.04}
-.cam svg.scene{position:absolute;inset:0;width:100%;height:100%}
+.cam .scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .cam-hud{position:absolute;left:20px;right:20px;top:18px;display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--muted)}
 .cam-hud b{color:var(--ink);font-weight:600}
 .rec{display:inline-flex;align-items:center;gap:7px}
@@ -191,6 +191,20 @@ section{padding:112px 0}
 .rring{fill:none;stroke:var(--accent);stroke-width:1.4;transform-box:fill-box;transform-origin:center;opacity:0}
 .in .rring{animation:pulse 2.6s var(--out) infinite}
 /* fitness */
+.fit{position:relative;height:220px;border-radius:12px;background:linear-gradient(180deg,#f7f9fc,#eaeff7);overflow:hidden}
+.fit canvas{position:absolute;inset:0;width:100%;height:100%}
+.fit-hud{position:absolute;right:14px;top:12px;display:grid;gap:8px;text-align:right}
+.fit-hud span{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.fit-hud b{font:700 19px/1.1 var(--display);color:var(--ink)}
+.fit-hud b.ok{color:var(--signal)}
+.fit-toast{position:absolute;left:12px;bottom:12px;font:600 12px var(--body);color:var(--signal);background:var(--signal-soft);padding:5px 12px;border-radius:999px;opacity:0;transform:translateY(4px);transition:opacity .25s var(--out),transform .25s var(--out)}
+.fit-toast.show{opacity:1;transform:none}
+.wave{margin-top:10px}
+.hbox{position:absolute;border:1.5px dashed var(--signal);border-radius:8px;pointer-events:none}
+.hbox span{position:absolute;left:-1px;top:-20px;font:600 11px var(--body);color:var(--signal);white-space:nowrap}
+#heroGL{opacity:0;transition:opacity .8s var(--out)}
+.cam.gl #heroGL{opacity:1}
+.cam.gl #scene{display:none}
 .floor{stroke:#cfd5e0;stroke-width:1}
 .limb{stroke:var(--accent);stroke-width:4;stroke-linecap:round;fill:none}
 .joint{fill:#fff;stroke:var(--accent);stroke-width:2}
@@ -336,18 +350,20 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <div>
       <h1>Min Thaw Phyo</h1>
-      <p class="role">AI/ML Engineer, also known as Justin</p>
-      <p class="tag">I build AI systems that see, read and reason: real-time computer vision, sign language recognition, data analysis and multi-agent LLM tools.</p>
+      <p class="role">Data scientist, also known as Justin</p>
+      <p class="tag">I turn messy data into clear decisions, and build machine learning models that see, read and reason.</p>
       <div class="btns">
         <a class="btn primary" href="#experience">See my experience</a>
         <a class="btn" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6230738" target="_blank" rel="noopener">Read my paper</a>
       </div>
-      <p class="avail"><i></i>Open to AI/ML Engineer and data roles in Singapore and Southeast Asia</p>
+      <p class="avail"><i></i>Open to data science, data analyst and machine learning roles in Singapore and Southeast Asia</p>
     </div>
 
     <figure class="cam" aria-label="Animated demo: face, body and hand landmarks tracked across 30 frames, then classified by an LSTM as the Burmese word for hello, as in my Myanmar Sign Language research">
       <svg class="scene" id="scene" viewBox="0 0 400 416" aria-hidden="true"></svg>
-      <div class="cam-hud"><span class="rec">Tracking</span><span class="legend"><span style="--c:#8a91a1">Face</span><span style="--c:#9db1ff">Body</span><span style="--c:#2f5bff">Hand</span></span></div>
+      <canvas class="scene" id="heroGL" aria-hidden="true"></canvas>
+      <div class="hbox" id="hbox" hidden><span>right hand 0.98</span></div>
+      <div class="cam-hud"><span class="rec">Tracking in 3D</span><span class="legend"><span style="--c:#8a91a1">Face</span><span style="--c:#9db1ff">Body</span><span style="--c:#2f5bff">Hand</span></span></div>
       <div class="cam-foot">
         <div class="cam-row"><span>LSTM sequence <b class="num" id="bufN">0</b>/30 frames</span><span class="pred" id="pred">Predicted <svg viewBox="0 -1043 3882 1093" role="img" aria-label="မင်္ဂလာပါ"><path d="M342 10Q256 10 191.0 -26.5Q126 -63 89.0 -128.0Q52 -193 52 -277Q52 -336 69.0 -388.0Q86 -440 116.0 -481.0Q146 -522 187 -549L245 -468Q216 -445 197.0 -416.0Q178 -387 168.5 -353.0Q159 -319 159 -278Q159 -249 164 -223Q194 -247 231 -263Q278 -284 341 -284Q400 -284 448 -266Q486 -250 518 -224Q523 -249 523 -278Q523 -319 513.0 -353.0Q503 -387 483.0 -416.0Q463 -445 432 -468L489 -549Q532 -523 563.5 -481.0Q595 -439 612.5 -387.0Q630 -335 630 -277Q630 -192 593.0 -127.5Q556 -63 491.0 -26.5Q426 10 342 10ZM192 -151Q213 -119 245 -100Q286 -76 341 -76Q397 -76 437 -100Q469 -118 490 -151Q463 -176 429 -190Q389 -205 340 -205Q294 -205 255 -189Q221 -175 192 -151ZM868 10Q830 -14 799.5 -55.0Q769 -96 751.5 -149.0Q734 -202 734 -262Q734 -347 771.0 -412.0Q808 -477 872.5 -513.0Q937 -549 1020 -549Q1104 -549 1168.0 -512.5Q1232 -476 1268.0 -411.5Q1304 -347 1304 -262Q1304 -204 1286.5 -151.0Q1269 -98 1239.0 -56.5Q1209 -15 1170 10L1112 -71Q1140 -95 1158.5 -123.5Q1177 -152 1186.0 -186.5Q1195 -221 1195 -261Q1195 -324 1172.5 -368.5Q1150 -413 1110.5 -437.0Q1071 -461 1020 -461Q968 -461 928.0 -437.0Q888 -413 865.5 -367.5Q843 -322 843 -261Q843 -221 852.5 -186.5Q862 -152 880.5 -123.5Q899 -95 926 -71ZM1021 -626Q969 -626 936.5 -655.0Q904 -684 904 -736Q904 -774 922 -799Q929 -809 939 -817Q925 -830 917 -846Q905 -868 905 -896Q905 -947 937.5 -975.0Q970 -1003 1021 -1003Q1053 -1003 1078.5 -993.0Q1104 -983 1121 -962L1073 -915Q1063 -923 1052.0 -927.0Q1041 -931 1027 -931Q1008 -931 997.0 -921.5Q986 -912 986 -894Q986 -877 996 -863Q1002 -855 1011 -847Q1016 -847 1021 -847Q1055 -847 1084.0 -833.5Q1113 -820 1128 -794L1072 -756Q1065 -765 1054.0 -770.0Q1043 -775 1029 -775Q1008 -775 997.0 -764.5Q986 -754 986 -736Q986 -719 997.5 -709.0Q1009 -699 1029 -699Q1043 -699 1054.5 -704.0Q1066 -709 1075 -718L1128 -677Q1113 -653 1085.0 -639.5Q1057 -626 1021 -626ZM1667 10Q1590 10 1531.5 -24.0Q1473 -58 1440.5 -121.0Q1408 -184 1408 -269Q1408 -348 1441.5 -411.5Q1475 -475 1535.5 -512.0Q1596 -549 1680 -549Q1757 -549 1811.5 -517.5Q1866 -486 1903.0 -430.0Q1940 -374 1962 -299Q1984 -225 2011.0 -176.5Q2038 -128 2075.0 -104.5Q2112 -81 2162 -81Q2206 -81 2241.0 -104.0Q2276 -127 2296.5 -170.5Q2317 -214 2317 -271Q2317 -328 2296.5 -370.5Q2276 -413 2239.0 -436.0Q2202 -459 2152 -459Q2125 -459 2104.0 -455.0Q2083 -451 2064 -442L2026 -521Q2045 -532 2066.5 -538.0Q2088 -544 2113.0 -546.5Q2138 -549 2167 -549Q2244 -549 2302.0 -515.0Q2360 -481 2392.5 -418.5Q2425 -356 2425 -269Q2425 -190 2391.5 -127.0Q2358 -64 2298.0 -27.0Q2238 10 2158 10Q2081 10 2026.0 -19.0Q1971 -48 1933.5 -104.0Q1896 -160 1871 -240Q1847 -321 1818.0 -368.5Q1789 -416 1754.5 -437.0Q1720 -458 1675 -458Q1626 -458 1590.5 -434.5Q1555 -411 1536.0 -368.0Q1517 -325 1517 -268Q1517 -211 1537.5 -168.5Q1558 -126 1595.0 -103.0Q1632 -80 1681 -80Q1708 -80 1729.0 -84.5Q1750 -89 1770 -97L1807 -18Q1789 -8 1767.5 -1.5Q1746 5 1720.5 7.5Q1695 10 1667 10ZM2612 10Q2584 10 2559.0 7.5Q2534 5 2513.0 -1.5Q2492 -8 2474 -18L2511 -97Q2530 -89 2550.5 -84.5Q2571 -80 2597 -80Q2671 -80 2714.0 -131.5Q2757 -183 2757 -269Q2757 -325 2735.0 -368.0Q2713 -411 2672.5 -435.0Q2632 -459 2576 -459Q2539 -459 2503.0 -448.0Q2467 -437 2433.0 -414.5Q2399 -392 2367 -359L2311 -428Q2351 -467 2391.0 -494.0Q2431 -521 2477.0 -535.0Q2523 -549 2580 -549Q2664 -549 2729.0 -513.0Q2794 -477 2830.5 -414.5Q2867 -352 2867 -271Q2867 -187 2834.0 -123.5Q2801 -60 2743.5 -25.0Q2686 10 2612 10ZM3260 10Q3174 10 3109.0 -26.5Q3044 -63 3007.0 -128.0Q2970 -193 2970 -277Q2970 -336 2987.0 -388.0Q3004 -440 3034.0 -481.0Q3064 -522 3105 -549L3163 -468Q3135 -445 3116.5 -416.0Q3098 -387 3088.5 -353.0Q3079 -319 3079 -278Q3079 -217 3101.5 -172.0Q3124 -127 3165.0 -102.5Q3206 -78 3259 -78Q3313 -78 3353.0 -102.5Q3393 -127 3416.0 -172.0Q3439 -217 3439 -278Q3439 -319 3429.0 -353.0Q3419 -387 3399.5 -416.0Q3380 -445 3350 -468L3407 -549Q3450 -523 3481.5 -481.0Q3513 -439 3530.5 -387.0Q3548 -335 3548 -277Q3548 -192 3511.0 -127.5Q3474 -63 3409.0 -26.5Q3344 10 3260 10ZM3691 0V-772Q3691 -842 3662.5 -881.5Q3634 -921 3572 -921Q3518 -921 3485.5 -886.0Q3453 -851 3453 -777V-761H3350V-776Q3350 -846 3377.0 -897.0Q3404 -948 3454.0 -975.5Q3504 -1003 3572 -1003Q3678 -1003 3736.5 -939.0Q3795 -875 3795 -762V0Z"/></svg> hello</span></div>
         <div class="buffer" id="buffer"></div>
@@ -360,8 +376,8 @@ footer a{color:var(--muted)}
 <section class="journey" id="journey">
   <div class="wrap">
     <div>
-      <h2>Two years of shipping AI across Southeast Asia</h2>
-      <p class="lede">I've built models in Yangon and Bangkok, studied in Singapore, and worked remotely for a team in Bali.</p>
+      <h2>Work experience across Southeast Asia</h2>
+      <p class="lede">Two years of AI engineering and data analysis: computer vision in Yangon and Bangkok, market analysis for a team in Bali, and Data Science study in Singapore.</p>
       <ol class="stops" id="stops">
         <li data-pin="ygn"><span class="dot">1</span><div><b>Yangon, Myanmar</b><span>2023 to 2024: AI Engineer, sign language and OCR</span></div></li>
         <li data-pin="bkk"><span class="dot">2</span><div><b>Bangkok, Thailand</b><span>2024: Machine Learning Engineer, real-time pose tracking</span></div></li>
@@ -411,7 +427,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <div class="sec-head">
       <h2>Where I've worked</h2>
-      <p class="lede">From research-grade computer vision to market analysis that leadership and investors read.</p>
+      <p class="lede">From market analysis that leadership and investors read to research-grade computer vision.</p>
     </div>
 
     <article class="job">
@@ -471,22 +487,23 @@ footer a{color:var(--muted)}
         <div class="chips"><span class="chip">MediaPipe</span><span class="chip">TensorFlow</span><span class="chip">LSTM</span><span class="chip">OpenCV</span><span class="chip">Python</span></div>
       </div>
       <figure class="viz watch" id="fitViz">
-        <svg viewBox="0 0 352 250" aria-hidden="true">
-          <rect width="352" height="250" fill="#f7f9fc"/>
-          <path d="M14 30V14H30M322 14H338V30M338 220V236H322M30 236H14V220" fill="none" stroke="#9db1ff" stroke-width="2"/>
-          <line class="floor" x1="30" y1="206" x2="214" y2="206"/>
-          <g id="body"></g>
-          <path class="arc" id="kneeArc"/>
-          <text class="v-t" x="236" y="40">Reps</text>
-          <text class="v-b num" x="236" y="64" id="reps">0</text>
-          <g class="repbar" id="repbar" transform="translate(236 74)"></g>
-          <text class="v-t" x="236" y="112">Knee angle</text>
-          <text class="v-b num" x="236" y="136" id="knee">170°</text>
-          <text class="v-t" x="236" y="164">Inference</text>
-          <text class="v-b num" x="236" y="188" style="fill:#00936e" id="fps">62 fps</text>
-          <g class="toast" id="toast"><rect x="62" y="216" width="112" height="24" rx="12" fill="#e2f5ee"/><text class="v-ok" x="118" y="232" text-anchor="middle">Good depth</text></g>
+        <div class="fit">
+          <canvas id="fitGL" aria-hidden="true"></canvas>
+          <div class="fit-hud">
+            <div><span>Reps</span><b class="num" id="reps">0</b></div>
+            <div><span>Knee angle</span><b class="num" id="knee">170°</b></div>
+            <div><span>Inference</span><b class="num ok" id="fps">62 fps</b></div>
+          </div>
+          <div class="fit-toast" id="toast">Good depth</div>
+        </div>
+        <svg class="wave" viewBox="0 0 352 84" aria-hidden="true">
+          <text class="v-t" x="2" y="12">Knee angle over time</text>
+          <line x1="0" y1="56" x2="352" y2="56" stroke="#00936e" stroke-width="1" stroke-dasharray="4 4"/>
+          <text class="v-t" x="350" y="51" text-anchor="end" style="fill:#00936e">depth threshold</text>
+          <polyline id="wave" fill="none" stroke="#2f5bff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          <g id="repMarks"></g>
         </svg>
-        <figcaption>Pose landmarks drive rep counting and form feedback.</figcaption>
+        <figcaption>3D pose landmarks drive rep counting and form feedback.</figcaption>
       </figure>
     </article>
 
@@ -609,9 +626,9 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <div class="sec-head"><h2>What I work with</h2></div>
     <div class="tools">
+      <div><h3>Data analysis</h3><p>Turning raw data into decisions.</p><div class="chips"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">SQL</span><span class="chip">Excel PivotTables</span><span class="chip">R</span><span class="chip">Regression and GLMs</span><span class="chip">Data cleaning</span><span class="chip">Dashboards</span><span class="chip">Market research</span></div></div>
       <div><h3>Computer vision</h3><p>Seeing people and text in images and video.</p><div class="chips"><span class="chip">MediaPipe</span><span class="chip">OpenCV</span><span class="chip">Pose estimation</span><span class="chip">OCR</span></div></div>
       <div><h3>Deep learning and ML</h3><p>Training and evaluating models.</p><div class="chips"><span class="chip">TensorFlow</span><span class="chip">PyTorch</span><span class="chip">LSTM</span><span class="chip">scikit-learn</span><span class="chip">FinBERT</span></div></div>
-      <div><h3>Data analysis</h3><p>Turning raw data into decisions.</p><div class="chips"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">SQL</span><span class="chip">Excel PivotTables</span><span class="chip">R</span><span class="chip">Regression and GLMs</span><span class="chip">Data cleaning</span><span class="chip">Dashboards</span><span class="chip">Market research</span></div></div>
       <div><h3>LLMs and agents</h3><p>Building assistants that act safely.</p><div class="chips"><span class="chip">LangGraph</span><span class="chip">RAG</span><span class="chip">OpenAI API</span><span class="chip">AWS Bedrock</span><span class="chip">Azure AI Foundry</span><span class="chip">MCP</span><span class="chip">n8n</span><span class="chip">Pinecone</span></div></div>
       <div><h3>Backend and tools</h3><p>Shipping it to real users.</p><div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span><span class="chip">Git</span></div></div>
     </div>
@@ -664,7 +681,7 @@ footer a{color:var(--muted)}
     <div class="contact">
       <div>
         <h2>Let's build something useful</h2>
-        <p>I'm looking for AI/ML Engineer, applied AI and data roles across Singapore and Southeast Asia, and I'm open to remote work.</p>
+        <p>I'm looking for data science, data analyst and machine learning roles across Singapore and Southeast Asia, and I'm open to remote work.</p>
       </div>
       <div class="btns">
         <a class="btn primary" href="mailto:minthawphyo03@gmail.com">Email me</a>
@@ -700,7 +717,7 @@ const secObs = new IntersectionObserver(es => es.forEach(e => {
 document.querySelectorAll('main section[id]').forEach(s => secObs.observe(s));
 
 /* visuals animate only while on screen */
-const visible = new Set();
+const visible = new Set(); window.__visible = visible;
 const vObs = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); visible.add(e.target); } else visible.delete(e.target);
 }), {threshold:.3});
@@ -793,35 +810,6 @@ function tickBuffer(now){
   if (frames === 30){ pred.classList.add('show'); holdUntil = now + 2000; }
 }
 
-/* ---------- FitQuest squat tracker ---------- */
-const STAND = {head:[92,52],sh:[94,74],el:[100,100],wr:[102,126],hip:[96,128],kn:[98,166],an:[96,204],toe:[118,204]};
-const SQUAT = {head:[76,96],sh:[82,112],el:[112,120],wr:[142,118],hip:[62,154],kn:[118,160],an:[96,204],toe:[118,204]};
-const bodyG = document.getElementById('body');
-const limbs = [['sh','hip'],['hip','kn'],['kn','an'],['an','toe'],['sh','el'],['el','wr']].map(p => ({p, el: mk('line',{class:'limb'},bodyG)}));
-const head = mk('circle',{r:12,fill:'#eaf0ff',stroke:'#2f5bff','stroke-width':2.5},bodyG);
-const joints = ['sh','el','wr','hip','kn','an'].map(k => ({k, el: mk('circle',{class:'joint',r:4},bodyG)}));
-const repsEl = document.getElementById('reps'), kneeEl = document.getElementById('knee'), fpsEl = document.getElementById('fps'), arcEl = document.getElementById('kneeArc'), toast = document.getElementById('toast');
-const repBar = document.getElementById('repbar');
-const repCells = Array.from({length:10}, (_,i) => mk('rect',{x:i*10,y:0,width:7,height:6,rx:1.5},repBar));
-const fitViz = document.getElementById('fitViz');
-let reps = 0, wasDown = false;
-const ang = (a,b) => Math.atan2(a[1]-b[1], a[0]-b[0]);
-function drawSquat(now){
-  const f = (1 - Math.cos(now/2600*Math.PI*2))/2;
-  const J = {}; for (const k in STAND) J[k] = [lerp(STAND[k][0],SQUAT[k][0],f), lerp(STAND[k][1],SQUAT[k][1],f)];
-  limbs.forEach(({p,el}) => line(el,J[p[0]],J[p[1]]));
-  joints.forEach(({k,el}) => dot(el,J[k]));
-  dot(head,J.head);
-  const a1 = ang(J.hip,J.kn), a2 = ang(J.an,J.kn), r = 18;
-  let deg = Math.abs(a1-a2)*180/Math.PI; if (deg > 180) deg = 360-deg;
-  kneeEl.textContent = Math.round(deg) + '°';
-  arcEl.setAttribute('d',`M${J.kn[0]+Math.cos(a1)*r} ${J.kn[1]+Math.sin(a1)*r} A${r} ${r} 0 0 ${a2>a1?1:0} ${J.kn[0]+Math.cos(a2)*r} ${J.kn[1]+Math.sin(a2)*r}`);
-  toast.classList.toggle('show', f > .82);
-  if (f > .9 && !wasDown) wasDown = true;
-  if (f < .2 && wasDown){ wasDown = false; reps++; repsEl.textContent = reps; repCells.forEach((c,i) => c.classList.toggle('on', i < ((reps-1)%10)+1)); }
-  if (Math.random() < .04) fpsEl.textContent = (60 + Math.floor(Math.random()*5)) + ' fps';
-}
-
 /* ---------- dataset tool thumbnails ---------- */
 const thumbs = Array.from({length:24}, (_,i) => mk('rect',{class:'thumb',x:(i%12)*27,y:Math.floor(i/12)*18,width:22,height:14,rx:3},document.getElementById('thumbs')));
 const ocrViz = document.getElementById('ocrViz');
@@ -835,14 +823,13 @@ function tickThumbs(now){
 let last = 0;
 function loop(now){
   if (!document.hidden){
-    if (visible.has(cam)){ drawScene(now); tickBuffer(now); }
-    if (visible.has(fitViz)) drawSquat(now);
+    if (visible.has(cam)){ if (!window.__heroGL) drawScene(now); tickBuffer(now); }
     if (visible.has(ocrViz)) tickThumbs(now);
     if (!window.__glOn && now - last > 30){ drawMesh(true); last = now; }
   }
   requestAnimationFrame(loop);
 }
-drawScene(0); drawSquat(0);
+drawScene(0); window.__visible = visible;
 if (reduce){
   if (!window.__glOn) drawMesh(false);
   cells.forEach(c => c.classList.add('on')); bufN.textContent = 30; pred.classList.add('show');
@@ -943,6 +930,166 @@ else {
   const loop = () => { if (!document.hidden) frame(true); requestAnimationFrame(loop); };
   requestAnimationFrame(() => { canvas.classList.add('ready'); loop(); });
 }
+</script>
+<script type="module">
+/* three.js landmark rigs: hero signing figure and FitQuest squat tracker */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js';
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const vis = () => window.__visible || new Set();
+const V = (x,y,z) => new THREE.Vector3(x,y,z);
+const C = h => new THREE.Color(h);
+
+function makeStage(canvas, fov){
+  const r = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'low-power'});
+  r.setPixelRatio(Math.min(devicePixelRatio,2)); r.setClearColor(0xffffff,0);
+  const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(fov,1,.01,60);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c4dc, 2.4));
+  const d = new THREE.DirectionalLight(0xffffff, 1.8); d.position.set(2,4,5); scene.add(d);
+  const size = () => { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return; r.setSize(w,h,false); cam.aspect = w/h; cam.updateProjectionMatrix(); };
+  new ResizeObserver(size).observe(canvas); size();
+  return {r, scene, cam, render: () => r.render(scene, cam)};
+}
+// joints: InstancedMesh spheres; bones: InstancedMesh cylinders
+function makeRig(scene, n, edges, jointStyle, boneStyle){
+  const jm = new THREE.InstancedMesh(new THREE.SphereGeometry(1,18,14), new THREE.MeshStandardMaterial({roughness:.35, metalness:.05}), n);
+  const bm = new THREE.InstancedMesh(new THREE.CylinderGeometry(1,1,1,12,1), new THREE.MeshStandardMaterial({roughness:.5}), edges.length);
+  const radii = [];
+  for (let i=0;i<n;i++){ const [col,rad] = jointStyle(i); jm.setColorAt(i, C(col)); radii.push(rad); }
+  const bRad = edges.map((e,i) => { const [col,rad] = boneStyle(e,i); bm.setColorAt(i, C(col)); return rad; });
+  scene.add(bm, jm);
+  const m = new THREE.Matrix4(), q = new THREE.Quaternion(), up = V(0,1,0), dir = V(), mid = V(), sc = V();
+  return function update(P){
+    for (let i=0;i<n;i++){ m.compose(P[i], q.identity(), sc.setScalar(radii[i])); jm.setMatrixAt(i,m); }
+    edges.forEach(([a,b],i) => {
+      dir.subVectors(P[b],P[a]); const len = dir.length(); mid.addVectors(P[a],P[b]).multiplyScalar(.5);
+      q.setFromUnitVectors(up, dir.normalize()); m.compose(mid, q, sc.set(bRad[i], len, bRad[i])); bm.setMatrixAt(i,m);
+    });
+    jm.instanceMatrix.needsUpdate = true; bm.instanceMatrix.needsUpdate = true;
+  };
+}
+const ease = t => t<.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+const lerp = (a,b,t) => a + (b-a)*t;
+
+/* ================= HERO ================= */
+(() => {
+  const camEl = document.querySelector('.cam'), canvas = document.getElementById('heroGL'), hbox = document.getElementById('hbox');
+  let st; try { st = makeStage(canvas, 38); } catch(e){ canvas.remove(); return; }
+  window.__heroGL = true; camEl.classList.add('gl'); hbox.hidden = false;
+  const POSES = [
+    [[150,300],[105,270],[78,235],[62,200],[50,170],[118,190],[110,140],[106,108],[103,78],[148,185],[148,130],[148,95],[148,62],[178,192],[184,142],[188,110],[191,82],[205,205],[218,168],[226,143],[233,118]],
+    [[150,300],[112,268],[100,240],[118,222],[138,215],[122,192],[108,145],[100,115],[93,85],[150,188],[160,140],[166,108],[171,78],[176,196],[190,175],[178,205],[165,215],[200,208],[210,190],[198,215],[186,222]],
+    [[150,300],[128,262],[112,228],[104,195],[100,165],[130,205],[165,200],[170,222],[155,230],[150,210],[183,212],[186,234],[170,240],[168,220],[196,226],[196,246],[180,250],[182,232],[204,240],[202,258],[188,260]]
+  ];
+  const OPEN = POSES[0].map(p => Math.hypot(p[0]-150, p[1]-300));
+  const WR = [[268,240],[252,222],[274,232]];
+  const HE = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[0,17],[17,18],[18,19],[19,20]];
+  const toW = (x,y,z) => V((x-170)/100, -(y-230)/100, z);
+  // face: points on the front of an ellipsoid plus features
+  const FACE = [];
+  for (let la=-60; la<=60; la+=20) for (let lo=-80; lo<=80; lo+=20){
+    const a = la*Math.PI/180, o = lo*Math.PI/180;
+    FACE.push(V(.36*Math.cos(a)*Math.sin(o), 1.18 + .46*Math.sin(a), .3*Math.cos(a)*Math.cos(o)));
+  }
+  const FEAT = [V(-.13,1.25,.3),V(.13,1.25,.3),V(0,1.1,.38),V(-.11,.97,.28),V(0,.94,.31),V(.11,.97,.28)];
+  const NF = FACE.length + FEAT.length;
+  // body joint indices after face
+  const B0 = NF; // LS, RS, LE, LW, RE, RW, neckTop, neckBase, hipL, hipR
+  const H0 = B0 + 10;
+  const N = H0 + 21;
+  const BODY_E = [[0,1],[0,2],[2,3],[1,4],[4,5],[6,7],[0,8],[1,9],[8,9]].map(([a,b]) => [B0+a,B0+b]);
+  const EDGES = [...BODY_E, ...HE.map(([a,b]) => [H0+a,H0+b])];
+  const TIPS = new Set([4,8,12,16,20]);
+  const update = makeRig(st.scene, N, EDGES,
+    i => i < FACE.length ? ['#9aa1b1',.016] : i < NF ? ['#565d6d',.024] : i < H0 ? ['#9db1ff',.05] : ['#2f5bff', TIPS.has(i-H0) ? .036 : .028],
+    ([a]) => a >= H0 ? ['#2f5bff',.014] : ['#b3c3ff',.022]);
+  const P = Array.from({length:N}, () => V());
+  FACE.forEach((v,i) => P[i].copy(v)); FEAT.forEach((v,i) => P[FACE.length+i].copy(v));
+  let mx = 0, my = 0;
+  camEl.addEventListener('pointermove', e => { const r = camEl.getBoundingClientRect(); mx = (e.clientX-r.left)/r.width*2-1; my = (e.clientY-r.top)/r.height*2-1; });
+  camEl.addEventListener('pointerleave', () => { mx = my = 0; });
+  let yaw = 0, pitch = 0; const tmp = V();
+  function frame(now){
+    const seg = 1500, t = (now % (seg*3))/seg, i = Math.floor(t), f = ease(t-i), j = (i+1)%3;
+    const wx = lerp(WR[i][0],WR[j][0],f), wy = lerp(WR[i][1],WR[j][1],f);
+    const s = .6;
+    for (let k=0;k<21;k++){
+      const px = lerp(POSES[i][k][0],POSES[j][k][0],f), py = lerp(POSES[i][k][1],POSES[j][k][1],f);
+      const curl = Math.max(0, OPEN[k] - Math.hypot(px-150,py-300));
+      P[H0+k].copy(toW(wx+(px-150)*s, wy+(py-300)*s, .4 + curl*.005 + Math.sin(now/300+k)*.004));
+    }
+    const sw = Math.sin(now/1600)*.03;
+    for (let k=0;k<NF;k++){ const src = k < FACE.length ? FACE[k] : FEAT[k-FACE.length]; P[k].set(src.x+sw, src.y+Math.sin(now/1600+.5)*.01, src.z); }
+    P[B0].copy(toW(104,214,0)); P[B0+1].copy(toW(236,214,0)); P[B0+2].copy(toW(70,312,.18)); P[B0+3].copy(toW(84,410,.3));
+    P[B0+4].copy(toW(318,300,.3)); P[B0+5].copy(P[H0]); P[B0+6].copy(toW(170,166,0)); P[B0+7].copy(toW(170,214,0));
+    P[B0+8].copy(toW(124,430,-.02)); P[B0+9].copy(toW(216,430,-.02));
+    update(P);
+    const ty = Math.sin(now/3800)*.36 + mx*.3, tp = .08 + my*.12;
+    yaw += (ty-yaw)*.06; pitch += (tp-pitch)*.06;
+    const R = 5.2; st.cam.position.set(Math.sin(yaw)*R, .35 + Math.sin(pitch)*R*.4, Math.cos(yaw)*R);
+    st.cam.lookAt(.15,.42,0);
+    st.render();
+    // 2D hand box from projected landmarks
+    const w = canvas.clientWidth, h = canvas.clientHeight; let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for (let k=0;k<21;k++){ tmp.copy(P[H0+k]).project(st.cam); const sx = (tmp.x+1)/2*w, sy = (1-tmp.y)/2*h; x0=Math.min(x0,sx);y0=Math.min(y0,sy);x1=Math.max(x1,sx);y1=Math.max(y1,sy); }
+    hbox.style.cssText = `left:${x0-12}px;top:${y0-12}px;width:${x1-x0+24}px;height:${y1-y0+24}px`;
+  }
+  frame(0);
+  if (!reduceMotion){ const loop = now => { if (!document.hidden && vis().has(camEl)) frame(now); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+})();
+
+/* ================= FITQUEST ================= */
+(() => {
+  const fig = document.getElementById('fitViz'), canvas = document.getElementById('fitGL');
+  const repsEl = document.getElementById('reps'), kneeEl = document.getElementById('knee'), fpsEl = document.getElementById('fps'), toast = document.getElementById('toast');
+  const wave = document.getElementById('wave'), marks = document.getElementById('repMarks');
+  // MediaPipe-style body landmarks (y up, metres): standing and bottom of squat
+  const NAMES = ['nose','eyeL','eyeR','earL','earR','shL','shR','elL','elR','wrL','wrR','hipL','hipR','knL','knR','anL','anR','heL','heR','toL','toR'];
+  const STAND = {nose:[0,1.66,.1],eyeL:[-.04,1.7,.08],eyeR:[.04,1.7,.08],earL:[-.08,1.68,0],earR:[.08,1.68,0],shL:[-.2,1.46,0],shR:[.2,1.46,0],elL:[-.24,1.18,.04],elR:[.24,1.18,.04],wrL:[-.24,.93,.08],wrR:[.24,.93,.08],hipL:[-.14,.98,0],hipR:[.14,.98,0],knL:[-.15,.54,.03],knR:[.15,.54,.03],anL:[-.16,.1,0],anR:[.16,.1,0],heL:[-.16,.04,-.07],heR:[.16,.04,-.07],toL:[-.17,.02,.15],toR:[.17,.02,.15]};
+  const SQUAT = {nose:[0,1.24,.22],eyeL:[-.04,1.28,.2],eyeR:[.04,1.28,.2],earL:[-.08,1.27,.1],earR:[.08,1.27,.1],shL:[-.2,1.06,.04],shR:[.2,1.06,.04],elL:[-.21,1.06,.32],elR:[.21,1.06,.32],wrL:[-.2,1.07,.6],wrR:[.2,1.07,.6],hipL:[-.16,.56,-.34],hipR:[.16,.56,-.34],knL:[-.2,.52,.2],knR:[.2,.52,.2],anL:[-.16,.1,0],anR:[.16,.1,0],heL:[-.16,.04,-.07],heR:[.16,.04,-.07],toL:[-.17,.02,.15],toR:[.17,.02,.15]};
+  const I = n => NAMES.indexOf(n);
+  const E = [['earL','eyeL'],['eyeL','nose'],['nose','eyeR'],['eyeR','earR'],['shL','shR'],['shL','elL'],['elL','wrL'],['shR','elR'],['elR','wrR'],['shL','hipL'],['shR','hipR'],['hipL','hipR'],['hipL','knL'],['knL','anL'],['anL','heL'],['heL','toL'],['anL','toL'],['hipR','knR'],['knR','anR'],['anR','heR'],['heR','toR'],['anR','toR']].map(([a,b]) => [I(a),I(b)]);
+  const isLeft = i => /L$/.test(NAMES[i]);
+  let st = null, update = null, head = null;
+  try {
+    st = makeStage(canvas, 32);
+    const grid = new THREE.GridHelper(2.4, 12, 0xc9d1e0, 0xdde3ec); st.scene.add(grid);
+    update = makeRig(st.scene, NAMES.length, E,
+      i => [i < 5 ? '#565d6d' : isLeft(i) ? '#2f5bff' : '#00936e', i < 5 ? .028 : .04],
+      ([a,b]) => [isLeft(a)||isLeft(b) ? (isLeft(a)&&isLeft(b) ? '#7f9aff' : '#b3c3ff') : (a < 5 ? '#9aa1b1' : '#6cc7aa'), .022]);
+    head = new THREE.Mesh(new THREE.SphereGeometry(.11,24,18), new THREE.MeshStandardMaterial({color:0xdfe6f7, roughness:.6, transparent:true, opacity:.85}));
+    st.scene.add(head);
+  } catch(e){ canvas.remove(); }
+  const P = NAMES.map(() => V());
+  const samples = [], repAt = []; let reps = 0, wasDown = false, lastSample = 0;
+  const a = V(), b = V();
+  function frame(now){
+    const f = (1 - Math.cos(now/2600*Math.PI*2))/2;
+    NAMES.forEach((n,i) => P[i].set(lerp(STAND[n][0],SQUAT[n][0],f), lerp(STAND[n][1],SQUAT[n][1],f), lerp(STAND[n][2],SQUAT[n][2],f)));
+    a.subVectors(P[I('hipL')],P[I('knL')]); b.subVectors(P[I('anL')],P[I('knL')]);
+    const deg = Math.round(a.angleTo(b)*180/Math.PI);
+    kneeEl.textContent = deg + '°';
+    toast.classList.toggle('show', f > .82);
+    if (f > .9 && !wasDown) wasDown = true;
+    if (f < .2 && wasDown){ wasDown = false; reps++; repsEl.textContent = reps; repAt.push(samples.length); }
+    if (Math.random() < .04) fpsEl.textContent = (60 + Math.floor(Math.random()*5)) + ' fps';
+    if (now - lastSample > 60){
+      lastSample = now; samples.push(deg);
+      if (samples.length > 110){ samples.shift(); for (let k=0;k<repAt.length;k++) repAt[k]--; while (repAt.length && repAt[0] < 0) repAt.shift(); }
+      const y = d => 20 + (180-d)/120*60; // 180° top, 60° bottom
+      wave.setAttribute('points', samples.map((d,k) => `${(k*3.2).toFixed(1)},${y(d).toFixed(1)}`).join(' '));
+      marks.innerHTML = repAt.map(k => `<circle cx="${(k*3.2).toFixed(1)}" cy="${y(samples[k] ?? 170)}" r="3.5" fill="#00936e"/>`).join('');
+    }
+    if (st){
+      update(P);
+      head.position.set(0, (P[I('earL')].y+P[I('eyeL')].y)/2, (P[I('earL')].z+P[I('nose')].z)/2 - .02);
+      const ang = .8 + Math.sin(now/5200)*.5, R = 3.3;
+      st.cam.position.set(Math.sin(ang)*R, 1.3, Math.cos(ang)*R); st.cam.lookAt(0,.86,0); st.cam.translateX(.45);
+      st.render();
+    }
+  }
+  frame(0);
+  if (!reduceMotion){ const loop = now => { if (!document.hidden && vis().has(fig)) frame(now); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+})();
 </script>
 </body>
 </html>
