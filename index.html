@@ -60,10 +60,10 @@ h3{font-size:var(--fs-h3s);font-weight:700;letter-spacing:-.01em;line-height:1.2
 .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(1.5) blur(14px);-webkit-backdrop-filter:saturate(1.5) blur(14px);box-shadow:0 1px 0 transparent;transition:box-shadow .2s}
 .nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font:700 18px/1 var(--display);text-decoration:none;letter-spacing:-.01em;padding:8px 0}
+.brand{font:700 18px/1 var(--display);text-decoration:none;letter-spacing:-.01em;padding:12px 0;display:inline-block;min-height:40px}
 .brand span{color:var(--faint);font-weight:500}
 .nav ul{display:flex;gap:2px;list-style:none}
-.nav ul a{display:block;padding:8px 12px;border-radius:10px;text-decoration:none;font-size:var(--fs-sm);color:var(--muted);transition:color .15s,background-color .15s}
+.nav ul a{display:flex;align-items:center;min-height:40px;padding:8px 12px;border-radius:10px;text-decoration:none;font-size:var(--fs-sm);color:var(--muted);transition:color .15s,background-color .15s}
 .nav ul a:hover,.nav ul a.active{color:var(--ink);background:var(--surface)}
 .nav .cta{background:var(--ink);color:#fff !important}
 .nav .cta:hover{background:#2a303c !important}
@@ -303,7 +303,7 @@ h3.sub{font-size:var(--fs-h4);margin:36px 0 16px}
 .contact .btn.primary{background:#fff;color:var(--ink)}
 footer{padding:32px 0 48px;font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{color:var(--muted)}
+footer a{color:var(--muted);display:inline-block;padding:12px 0}
 
 @media (max-width:1060px){
   .job{grid-template-columns:1fr 340px;gap:28px}
@@ -856,12 +856,12 @@ if (reduce){
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js';
 const canvas = document.getElementById('gl');
 let renderer;
-try { renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'low-power'}); }
+try { renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:false, powerPreference:'low-power'}); }
 catch (e) { canvas.remove(); throw e; }
 window.__glOn = true;
 const flat = document.getElementById('mesh'); flat.getContext('2d').clearRect(0,0,flat.width,flat.height); flat.style.display = 'none';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 renderer.setClearColor(0xffffff, 0);
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0xffffff, 55, 125);
