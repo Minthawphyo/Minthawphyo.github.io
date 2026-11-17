@@ -869,7 +869,7 @@ camera.position.z = 78;
 const group = new THREE.Group(); scene.add(group);
 
 const N = innerWidth < 720 ? 80 : 160, LINK = 15, MOUSE_R = 18;
-const BX = 80, BY = 50, BZ = 32;
+const BX = 80, BY = 50, BZ = 18;
 const pos = new Float32Array(N*3), vel = new Float32Array(N*3), col = new Float32Array(N*3);
 const blue = new THREE.Color(0x2f5bff), green = new THREE.Color(0x00936e), white = new THREE.Color(0xffffff);
 for (let i=0;i<N;i++){
@@ -881,7 +881,7 @@ const dotTex = (() => { const c = document.createElement('canvas'); c.width = c.
 const pGeo = new THREE.BufferGeometry();
 pGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
 pGeo.setAttribute('color', new THREE.BufferAttribute(col,3));
-const points = new THREE.Points(pGeo, new THREE.PointsMaterial({size:1.5, map:dotTex, vertexColors:true, transparent:true, alphaTest:.4, depthWrite:false, fog:true}));
+const points = new THREE.Points(pGeo, new THREE.PointsMaterial({size:1.25, map:dotTex, vertexColors:true, transparent:true, alphaTest:.4, depthWrite:false, fog:true}));
 group.add(points);
 
 const MAXS = N*10;
